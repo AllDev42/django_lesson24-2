@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Rejestracja zajęć zdalnych {% endblock %}</title>
+</head>
+<body>
+    <nav>
+      {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Profil</a>
+        <form method="post" action="{% url 'logout' %}">
+         {% csrf_token %}
+            <button type="submit" class="nav-link ms-2" >Wyloguj</button>
+        </form>
+        <span>Witaj, {{ user.username }}!</span>
+      {% else %}
+        <a href="{% url 'login' %}">Zaloguj</a>
+        <a href="{% url 'register' %}">Zarejestruj się</a>
+      {% endif %}
+    </nav>
+    <main>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+        {% block content %}
+        <!-- Treść podstrony wstawić tutaj -->
+        {% endblock %}
+    </main>
+    <footer>
+        <div>&copy; 2026 - Kurs Django</div>
+    </footer>
+
+</body>
+</html>
