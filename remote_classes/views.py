@@ -24,10 +24,12 @@ def register(request):
     # Renderujemy szablon z formularzem
     return render(request, 'users/register.html', {'form': form})
 
+# Zadanie 3 - strona profilu
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
 
+# Zadanie 5 - strona główna tylko dla zalogowanych
 @login_required
 def home(request):
     return render(request, 'home.html')

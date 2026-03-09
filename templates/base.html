@@ -9,31 +9,40 @@
     <title>{% block title %} Rejestracja zajęć zdalnych {% endblock %}</title>
 </head>
 <body>
-    <div>
+<div>
     <ul class="nav bg-info">
-      {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link link-light" href="{% url 'profile' %}">Profil</a>
-          </li>
-          <li class="nav-item">
-            <form method="post" action="{% url 'logout' %}">
-             {% csrf_token %}
-                <button type="submit" class="nav-link ms-2" >Wyloguj</button>
-            </form>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link">Witaj, {{ user.username }}!</span>
-          </li>
-      {% else %}
-          <li class="nav-item">
-            <a class="nav-link link-light" href="{% url 'login' %}">Zaloguj</a>
-          </li>
-          <li>
-            <a class="nav-link link-light" href="{% url 'register' %}">Zarejestruj się</a>
-          </li>
-      {% endif %}
+        <!-- Zadanie 2 - linki nawigacji -->
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'profile' %}">Profil</a>
+            </li>
+            <li class="nav-item">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link ms-2">Wyloguj</button>
+                </form>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link">Zalogowano jako {{ user.username }}!</span>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'login' %}">Zaloguj</a>
+            </li>
+            <li class="nav-item">
+                <!-- Logowanie przez Google -->
+                <form method="post" action="/accounts/google/login/">
+                    {% csrf_token %}
+                    <button type="submit">🌐 Zaloguj przez Google</button>
+                </form>
+            </li>
+            <li>
+                <a class="nav-link link-light" href="{% url 'register' %}">Zarejestruj się</a>
+            </li>
+        {% endif %}
     </ul>
     <main>
+        <!-- Zadanie 4 - pętla messages -->
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -42,13 +51,13 @@
             {% endfor %}
         {% endif %}
         {% block content %}
-        <!-- Treść podstrony wstawić tutaj -->
+            <!-- Treść podstrony wstawić tutaj -->
         {% endblock %}
     </main>
-    </div>
-    <footer>
-        <div>&copy; 2026 - Kurs Django</div>
-    </footer>
+</div>
+<footer>
+    <div>&copy; 2026 - Kurs Django</div>
+</footer>
 
 </body>
 </html>

@@ -27,4 +27,5 @@ urlpatterns = [
     path('', user_views.home, name='home'),
     path('register/', user_views.register, name='register'),
     path('', include('remote_classes.urls')),
+    path("accounts/", include("allauth.urls")),
 ]
